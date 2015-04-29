@@ -57,38 +57,40 @@ public class Receptionist implements Staff{
         JPanel left= new JPanel(new GridLayout(10,1, 4,4 ));
      
         JPanel right= new JPanel();
-        //right.setPreferredSize(new Dimension(200,200));
+        
         
         right.setBackground(Color.PINK);
         jFunction = basicLayout.getFunctions();
-        //jFunction.setBackground(Color.red);
+        
         jFunction.setLayout(new GridLayout(1, 2,4,4));
          
         left.add(jGenerateBill);
        
         left.add(jBookAppointment);
         left.add(jSendBillDetails);
-        //right.add(jGenerateBill, BorderLayout.EAST);
+        
         
         jFunction.add(left);
         jFunction.add(right);
         
-        //jFunction.add(main, BorderLayout.EAST);
-
-        
-        //jGenerateBill.addActionListener(null);
         jGenerateBill.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
                 generateBill(null);
             }
         } );
+        
+        jBookAppointment.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                bookAppointment(null, null,null);
+            }
+        });
       
            
     }
     
     
     public void bookAppointment(Doctor doctor, Patient patient, DepartmentType departmentType){
-        JOptionPane.showMessageDialog(cp, "Appointment Booked!!!!!");
+        
     }
     
     public void queryAppointment(Patient patient){

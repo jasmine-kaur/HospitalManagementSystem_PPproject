@@ -40,67 +40,48 @@ public class BasicLayout {
     
     public void addUI(){
        
-        //Layout l=new Layout();
-        //l=new RelativeLayout();
-        
+      //main frame
         jFrame= new JFrame("IIITD Hospital" );
         jFrame.setLayout(new BorderLayout());
-        //jFrame.add(gui);
         jFrame.setSize(400, 400);
         jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
         
+        //Title panel with label iiitd-hospital
         title_panel= new JPanel(new BorderLayout());
         
-         loginAs= new JPanel(new BorderLayout());
+        //Panel after title panel
+        loginAs= new JPanel(new BorderLayout());
         buttons=new JPanel();
         main= new JPanel(new BorderLayout());
        Dimension d= new Dimension(50,50);
        title_panel.setPreferredSize(d);
         
        
-       /*JPanel user= new JPanel(new BorderLayout());
-       JButton button = new JButton("mansi");
-       user.add(button);*/
+       
        loginAs.setBackground(Color.DARK_GRAY);
-       //loginAs.setComponentPopupMenu(null);
+       
        loginAs.setPreferredSize(d);
-       //loginAs.add(new JButton("mansi"));
-        //Game gameMenu=new Game();
-       // JMenuItem logOut= new JMenuItem("log out");
-       // logOut.addActionListener(new LogOut());
-       // user.add(logOut);
-        
-        //jMenuBar.add(user);
          
-        //loginAs.add(jMenuBar, BorderLayout.NORTH);
-        
-     
-        //JButton but= new JButton();
-         title_panel.setBackground(Color.cyan);
-          JPanel title_main= new JPanel(new BorderLayout());
-          title_main.setBackground(Color.DARK_GRAY);
-          //////////////////
-          //-------------------------------------------------
-         
-         //login.add(loginAs);
-         ///////////////////////////////
-         JLabel name=new JLabel("IIITD-Hospital", JLabel.CENTER);
-         //JLabel heading=new JLabel("HOSPITAL MANGEMENT SYSTEM", JLabel.LEFT);
-         title_panel.add(name, BorderLayout.CENTER);
+       title_panel.setBackground(Color.cyan);
+       JPanel title_main= new JPanel(new BorderLayout());
+       title_main.setBackground(Color.DARK_GRAY);
+       
+       JLabel name=new JLabel("IIITD-Hospital", JLabel.CENTER);
+       
+       title_panel.add(name, BorderLayout.CENTER);
       
             
-         title_main.add(title_panel, BorderLayout.NORTH);
-         title_main.add(loginAs, BorderLayout.SOUTH);
+       title_main.add(title_panel, BorderLayout.NORTH);
+       title_main.add(loginAs, BorderLayout.SOUTH);
          
-         //title_panel.add(login);
-         //title.add(heading, BorderLayout.CENTER);
-         buttons.setBackground(Color.LIGHT_GRAY);
-         main.setBackground(Color.BLACK);
-        //title.add(but);
-         
-        // title_main.add(title_panel, BorderLayout.NORTH );
-         //title_main.add(loginAs, BorderLayout.SOUTH);
+       //Buttons is the panel to set buttons for the functionality 
+       //This panel will be returned to set buttons for functionalities
+       buttons.setBackground(Color.LIGHT_GRAY);
+       main.setBackground(Color.BLACK);
+        
+       
+       
          
          main.add(title_main, BorderLayout.NORTH);
          main.add(buttons);
