@@ -84,15 +84,35 @@ public class Patient {
         return patientRecord;
     }
     
-    void updatePatientRecord(PatientRecord patientRecord){
+    private void updatePatientRecord(PatientRecord patientRecord){
         
     }
     
-    void updatePatientRecord(Appointment appointment){
+    private void updatePatientRecord(Appointment appointment){
         
     }
     
-    void updatePatientRecord(Test test){
+    private void updatePatientRecord(Test test){
+        
+    }
+    
+    private void updatePatientRecord(Surgery surgery){
+        
+    }
+    
+    private void updatePatientRecord(int wardNumber){
+        
+    }
+    
+    private void updatePatientRecord(Doctor doctor){
+        
+    }
+    
+    private void updatePatientRecord(DepartmentType departmentType){
+        
+    }
+    
+    private void updatePatientRecord(BloodGroup bloodGroup){
         
     }
     

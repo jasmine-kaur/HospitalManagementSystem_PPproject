@@ -38,6 +38,10 @@ public class PatientRecord {
         
     }
     
+    public PatientRecord getPatientRecord(){
+        return this.getPatientRecord();
+    }
+    
     public void addSurgey(Surgery surgery){
         
     }
