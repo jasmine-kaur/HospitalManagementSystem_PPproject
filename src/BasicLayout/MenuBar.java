@@ -1,3 +1,4 @@
+package BasicLayout;
 
 import java.awt.BorderLayout;
 import javax.swing.JMenu;
