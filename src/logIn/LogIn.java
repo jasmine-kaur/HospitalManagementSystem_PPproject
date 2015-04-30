@@ -22,14 +22,16 @@ import java.awt.event.*;
 
 import java.sql.*;
 import staff.Receptionist;
+import staff.StaffAdmin;
 import staff.StaffType;
 
- 
+
 
 public class LogIn extends JFrame implements ActionListener
 
 {
 
+    public static Connection con; 
     JLabel l1, l2, l3;
 
     JTextField tf1;
@@ -142,9 +144,9 @@ public class LogIn extends JFrame implements ActionListener
             Class.forName("com.mysql.jdbc.Driver");
             //String host="173.194.253.179/pp";
             String host="jdbc:mysql://173.194.253.179/hospital";
-            Connection con = DriverManager.getConnection(host, "root", "sampleapp");
+            con = DriverManager.getConnection(host, "root", "sampleapp");
 
-            PreparedStatement ps = con.prepareStatement("select username,employeetype from login where username =? and password=?");
+            PreparedStatement ps = con.prepareStatement("select username,employeetype,employeeid from login where username =? and password=?");
 
             ps.setString(1, str1);
 
@@ -167,6 +169,11 @@ public class LogIn extends JFrame implements ActionListener
                     Receptionist rec= new Receptionist();
                     rec.addUI();
                 }
+                else if(employeeType.equals(StaffType.STAFFADMIN.getStaffType())){
+                    StaffAdmin sta=new StaffAdmin(Integer.parseInt(rs.getString(3)));
+                    sta.addUI();
+                }
+                else{}
                 //System.out.println("Type of Employee:"+employeetype);
                 /*f1.setVisible(true);
 

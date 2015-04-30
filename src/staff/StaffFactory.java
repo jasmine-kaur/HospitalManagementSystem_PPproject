@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public class StaffFactory {
     
-    private StaffType staffType;
+    private String staffType;
     private int employeeId;
     private Name name;
     private Date dateOfBirth;
@@ -24,16 +24,38 @@ public class StaffFactory {
     private int salary;
     private Date dateOfAppointment;
     
-    public StaffFactory(StaffType staffType,int employeeId, Name name,Date dateOfBirth,Long contactInfo,
-            Address address, int salary, Date dateOfAppointment){
+    public StaffFactory(String staffType/*,int employeeId, Name name,Date dateOfBirth,Long contactInfo,
+            Address address, int salary, Date dateOfAppointment*/){
         this.staffType=staffType;
-        this.employeeId=employeeId;
-        this.name=name;
-        this.dateOfBirth=dateOfBirth;
-        this.contactInfo=contactInfo;
-        this.address=address;
-        this.salary=salary;
-        this.dateOfAppointment=dateOfAppointment;
+        if( staffType.equals(StaffType.RECEPTIONIST.getStaffType())){
+            addReceptionist();        
+        }
+        else if( staffType.equals(StaffType.STAFFADMIN.getStaffType())){
+            addStaffAdmin();        
+        }
+        else if(staffType.equals(StaffType.DOCTOR.getStaffType())){
+            addDoctor();    
+        }
+        else if(staffType.equals(StaffType.WARDBOY.getStaffType())){
+            addWardBoy();    
+        }
+        else if(staffType.equals(StaffType.NURSE.getStaffType())){
+            addNurse();    
+        }
+        else if(staffType.equals(StaffType.DEPARTMENTADMIN.getStaffType())){
+            addDepartmentAdmin();    
+        }
+        else if(staffType.equals(StaffType.HOD.getStaffType())){
+            promoteToHOD();
+        }
+        else{}
+        //this.employeeId=employeeId;
+        //this.name=name;
+        //this.dateOfBirth=dateOfBirth;
+        //this.contactInfo=contactInfo;
+        //this.address=address;
+        //this.salary=salary;
+        //this.dateOfAppointment=dateOfAppointment;
     }
     
     public void addDoctor(){
@@ -42,10 +64,19 @@ public class StaffFactory {
     public void addNurse(){
         
     }
-    public void promoteToHOD(Doctor doctor){
+    public void promoteToHOD(){
         
     }
-    public void createWardBoy(){
+    public void addWardBoy(){
+        
+    }
+    public void addDepartmentAdmin(){
+        
+    }
+    public void addStaffAdmin(){
+        
+    }
+    public void addReceptionist(){
         
     }
 }

@@ -154,9 +154,9 @@ public class BasicLayout {
         form.add(datePicker);
         
 
-        Calendar selectedValue = (Calendar) datePicker.getModel().getValue();
+       /* Calendar selectedValue = (Calendar) datePicker.getModel().getValue();
         Date selectedDate = selectedValue.getTime();
-        System.out.println("date:"+selectedDate);
+        System.out.println("date:"+selectedDate);*/
         
         //Adding radiobutton
         form.add(genderLabel);

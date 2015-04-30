@@ -10,5 +10,6 @@ package staff;
  * @author Mansi Verma
  */
 public interface Staff {
+    
     public void viewProfile();
 }
