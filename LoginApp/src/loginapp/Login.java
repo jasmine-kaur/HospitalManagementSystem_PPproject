@@ -13,7 +13,9 @@ package loginapp;
 
 
 import javax.swing.*;
-
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.awt.*;
 
 import java.awt.event.*;
@@ -135,11 +137,12 @@ public class Login extends JFrame implements ActionListener
 
         {
 
-            //Class.forName("com.mysql.jdbc.Driver.Derby");
-            String host="jdbc:derby://localhost:1527/HospitalManagementSystem";
-            Connection con = DriverManager.getConnection(host, "hospital", "hospital");
+            Class.forName("com.mysql.jdbc.Driver");
+            //String host="173.194.253.179/pp";
+            String host="jdbc:mysql://173.194.253.179/hospital";
+            Connection con = DriverManager.getConnection(host, "root", "sampleapp");
 
-            PreparedStatement ps = con.prepareStatement("select username from login where CAST(username as VARCHAR(128))=? and CAST(password as VARCHAR(128))=?");
+            PreparedStatement ps = con.prepareStatement("select username from login where username =? and password=?");
 
             ps.setString(1, str1);
 
