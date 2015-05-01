@@ -9,6 +9,11 @@ package patient;
  * @author Devanshu
  */
 public enum BloodGroup {
-    
+    B,
+    A,
+    AB,
+    O;
+
+   
     
 }

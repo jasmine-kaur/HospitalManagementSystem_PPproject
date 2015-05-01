@@ -4,12 +4,10 @@
  * and open the template in the editor.
  */
 package staff;
-
 import BasicDetails.Address;
 import BasicDetails.Name;
 import java.awt.Component;
 import BasicLayout.BasicLayout;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -17,7 +15,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import patient.Bill;
@@ -36,7 +33,11 @@ public class Receptionist implements Staff{
     private Address address;
     private int salary;
     private JPanel jFunction;
+    private JPanel left;
+    private JPanel right;
+    BasicLayout basicLayout;
     private Component cp;
+    
 
     @Override
     public void viewProfile() {
@@ -51,12 +52,12 @@ public class Receptionist implements Staff{
         JButton jBookAppointment= new JButton("Book Appointment");
         JButton jSendBillDetails = new JButton("Send Bill Details");
         
-        BasicLayout basicLayout= new BasicLayout();
+        basicLayout= new BasicLayout();
         basicLayout.addUI();
         
-        JPanel left= new JPanel(new GridLayout(10,1, 4,4 ));
+        left= new JPanel(new GridLayout(10,1, 4,4 ));
      
-        JPanel right= new JPanel();
+        right= new JPanel();
         
         
         right.setBackground(Color.PINK);
@@ -73,14 +74,22 @@ public class Receptionist implements Staff{
         jFunction.add(left);
         jFunction.add(right);
         
+        //adding customer panel
+        
         jGenerateBill.addActionListener(new ActionListener() { 
+            @Override
             public void actionPerformed(ActionEvent e) { 
                 generateBill(null);
             }
         } );
         
         jBookAppointment.addActionListener(new ActionListener(){
+            @Override
             public void actionPerformed(ActionEvent e){
+                JPanel customerForm= basicLayout.getCustomerForm();
+                assert customerForm!=null;
+                right.add(customerForm);
+                //Patient patient= basicLayout.getPatient();
                 bookAppointment(null, null,null);
             }
         });
@@ -90,7 +99,7 @@ public class Receptionist implements Staff{
     
     
     public void bookAppointment(Doctor doctor, Patient patient, DepartmentType departmentType){
-        
+        //Taking patient's data 
     }
     
     public void queryAppointment(Patient patient){
@@ -106,6 +115,8 @@ public class Receptionist implements Staff{
     public void sendBillDetailsToAccountant(Bill bill){
         JOptionPane.showMessageDialog(cp, "Sending Bill Details to Acountant!!!!!");
     }
+    
+    
     
      public static void main(String[] args) {
         // TODO code application logic here

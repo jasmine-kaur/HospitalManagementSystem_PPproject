@@ -32,7 +32,7 @@ public class Patient {
         return name;
     }
     
-    private void setName(Name name){
+    public void setName(Name name){
         this.name=name;
     }
     
@@ -40,7 +40,7 @@ public class Patient {
         return dateOfBirth;
     }
     
-    private void setDateOfBirth(Date date){
+    public void setDateOfBirth(Date date){
         this.dateOfBirth=date;
     }
     
@@ -48,7 +48,7 @@ public class Patient {
         return gender;
     }
     
-    private void setGender(Gender gender){
+    public void setGender(Gender gender){
         this.gender=gender;
     }
     
@@ -56,7 +56,7 @@ public class Patient {
         return contactInfo;
     }
     
-    private void setContactInfo(long contact){
+    public void setContactInfo(long contact){
         this.contactInfo=contact;
     }
     
@@ -68,7 +68,7 @@ public class Patient {
         return address;
     }
     
-    private void setAddress(Address address){
+    public void setAddress(Address address){
         this.address=address;
     }
     

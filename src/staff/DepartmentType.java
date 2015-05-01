@@ -10,5 +10,8 @@ package staff;
  * @author Mansi Verma
  */
 public enum DepartmentType {
-    
+    CARDIO,
+    NEURO,
+    PED,
+    ORTHO;
 }
