@@ -6,7 +6,6 @@
 package staff;
 import BasicDetails.Address;
 import BasicDetails.Name;
-import java.awt.Component;
 import BasicLayout.BasicLayout;
 import account.Accountant;
 import java.awt.BorderLayout;
@@ -18,7 +17,6 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -62,6 +60,7 @@ public class Receptionist implements Staff{
     
     
     String scheduledDate=new String();
+    String schedule=new String();
      JDatePickerImpl datePicker;
      Bill bill;
      JPanel billDetailPanel;
@@ -126,6 +125,7 @@ public class Receptionist implements Staff{
         JButton jGenerateBill= new JButton("Generate Bill");
         jGenerateBill.setPreferredSize(new Dimension(50,50));
         JButton jBookAppointment= new JButton("Book Appointment");
+        JButton jCheckSchedule= new JButton("Check Schedule");
         
         
         basicLayout= new BasicLayout();
@@ -144,7 +144,7 @@ public class Receptionist implements Staff{
         left.add(jViewProfile);
         left.add(jGenerateBill);
         left.add(jBookAppointment);
-        
+        left.add(jCheckSchedule);
         
         
         jFunction.add(left);
@@ -156,6 +156,14 @@ public class Receptionist implements Staff{
             @Override
             public void actionPerformed(ActionEvent e) { 
                 viewProfile();
+            }
+        } );
+        
+        jCheckSchedule.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+                String scheduleReturned=checkSchedule();
+                JOptionPane.showMessageDialog(null, scheduleReturned);
             }
         } );
         
@@ -184,22 +192,6 @@ public class Receptionist implements Staff{
                     }
                 });
                 
-                
-                //}
-                /*ok.addActionListener(new ActionListener() { 
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        bill =new Bill(Integer.parseInt(regIdField.getText())); 
-                //if(Integer.parseInt(regIdField.getText())!=0){
-                        billDetailPanel=bill.getBillPanel();
-                        billPanel.add(billDetailPanel);
-                        right.add(billPanel);
-                        right.revalidate();
-                        right.repaint();
-                    //accountant.getBill(bill.generateBill());
-                    }
-                } );
-               */
               generateBill(null);
                 
             }
@@ -347,7 +339,7 @@ public class Receptionist implements Staff{
                     System.out.println("Appointment details:"+appointment.toString());
                 }
             }catch(SQLException ex){
-                Logger.getLogger(PatientRecord.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Receptionist.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
     
@@ -361,12 +353,35 @@ public class Receptionist implements Staff{
     public void sendBillDetailsToAccountant(int billAmount){
         
         accountant.getBill(billAmount);
-        JOptionPane.showMessageDialog(null, "Sending Bill Details to Acountant!!!!!");
+        JOptionPane.showMessageDialog(null, "Sending Bill Details to Accountant!!!!!");
     }
     
+    public String checkSchedule(){
+        //String schedule1=new String();
+        try{
+            
+            PreparedStatement ps2 = con.prepareStatement("select employeeid,shifttime,shiftdate,departmentname from doctor");
+            int  id;
+            String time,date,department;
+            
+            ResultSet rs = ps2.executeQuery();
+            while (rs.next())
+                {
+                
+                id = Integer.parseInt(rs.getString("employeeid"));
+                time = rs.getString("shifttime");
+                date = rs.getString("shiftdate");
+                department = rs.getString("departmentname");
+                
+                schedule = schedule.concat("\nId:"+id+"\nTime:"+time+"\nDate:"+date+"\nDepartment:"+department);
+                }
+        }catch(SQLException ex){
+            Logger.getLogger(Receptionist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return schedule;
+    }
     
-    
-     public static void main(String[] args) {
+    public static void main(String[] args) {
         // TODO code application logic here
          
          Receptionist rec= new Receptionist(1);

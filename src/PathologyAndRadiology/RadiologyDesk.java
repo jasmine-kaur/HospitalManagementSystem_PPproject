@@ -280,7 +280,7 @@ public class RadiologyDesk implements Staff{
                 try {
                     ps = con.prepareStatement("insert into radiologytest values (?,?,?)");
                     ps.setString(1, testnameField.getText());
-                    if(!costField.equals("")){
+                    if(!costField.getText().equals("")){
                         ps.setString(3, costField.getText());
                     }
                     else{
@@ -384,13 +384,25 @@ public class RadiologyDesk implements Staff{
                 
                    RadiologyTest pathtest=new RadiologyTest(Integer.parseInt(registrationidField.getText()));
                    if(!doctoridField.getText().equals("")){
-                       pathtest.setDoctorId(Integer.parseInt(doctoridField.getText()));
+                       try{
+                        pathtest.setDoctorId(Integer.parseInt(doctoridField.getText()));
+                       }catch(NumberFormatException ex){
+                           JOptionPane.showMessageDialog(cp, "Doctor id field is not in proper format");
+                       }
                    }
                    if(!patientidField.getText().equals("")){
-                       pathtest.setPatientId(Integer.parseInt(patientidField.getText()));
+                       try{
+                        pathtest.setPatientId(Integer.parseInt(patientidField.getText()));
+                       }catch(NumberFormatException ex){
+                           JOptionPane.showMessageDialog(cp, "Patient id field is not in proper format");
+                       }
                    }
                    if(!testidField.getText().equals("")){
-                       pathtest.setTestId(Integer.parseInt(testidField.getText()));
+                       try{
+                        pathtest.setTestId(Integer.parseInt(testidField.getText()));
+                       }catch(NumberFormatException ex){
+                           JOptionPane.showMessageDialog(cp, "Test id field is not in proper format");
+                       }
                    }
                    if(!departmentnameField.getText().equals("")){
                        pathtest.setDepartmentType(departmentnameField.getText());
@@ -402,12 +414,9 @@ public class RadiologyDesk implements Staff{
                         pathtest.setTestDate(datePicker);
                         
                    }
-                   
-                
-                
-                
             }});
     }
+    
     public void addTestPatientRecord(){
         JOptionPane.showMessageDialog(cp, "Add Patient test record");
         JPanel form= new JPanel(new GridLayout(10,1, 4,4 ));
@@ -483,12 +492,9 @@ public class RadiologyDesk implements Staff{
                         pathtest.setTestDate(datePicker);
                         
                    }
-                  
-                
                 } catch (SQLException ex) {
                     Logger.getLogger(RadiologyDesk.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
             }});
     }
     

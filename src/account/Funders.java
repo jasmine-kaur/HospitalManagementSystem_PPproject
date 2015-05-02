@@ -22,14 +22,9 @@ public class Funders {
     private Frame frame;
     
     public void addUI(){
-        
-    }
-    
-    public void viewProfile(){
-        
-    }
-    
-    public void donateToHospital(){
-        
+        this.fundId=0;
+        this.chequeNumber=0;
+        this.trusteeName=null;
+        this.dateOfFunding=null;
     }
 }

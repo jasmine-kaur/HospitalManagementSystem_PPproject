@@ -10,17 +10,12 @@ import staff.Staff;
 import BasicDetails.Address;
 import BasicDetails.Name;
 import java.awt.Frame;
-import patient.*;
 import java.awt.Component;
 import BasicLayout.BasicLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,7 +35,6 @@ import static login.LogIn.con;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
-import patient.PatientRecord;
 import staff.DateLabelFormatter;
 
 /**
@@ -60,6 +54,8 @@ public class EmergencyDesk implements Staff {
     private JPanel jFunction;
     private JPanel left;
     public JPanel right;
+    
+    //Basic Layout
     BasicLayout basicLayout;
     private Component cp;
     private JTextField traumasurgeonidField, messageField;
@@ -289,13 +285,7 @@ public class EmergencyDesk implements Staff {
                     
                     ps.setString(2, "1500-01-01");
                 }
-                
-               /* if(!dobField.getText().equals("")){
-                    ps.setString(2, dobField.getText());
-                }
-                else{
-                    ps.setString(2, "1500-01-01");
-                }*/
+
                 ps.setString(3, genderField.getText());
                 PreparedStatement ps1=con.prepareStatement("select MAX(patientid) from patient");
                     ResultSet rs1=ps1.executeQuery();

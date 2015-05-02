@@ -11,7 +11,7 @@ import BasicLayout.BasicLayout;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +25,6 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -1077,10 +1076,6 @@ public class StaffAdmin implements Staff{
                 
                 //Date appointmentDate=(Date)datePicker2.getModel().getValue();
                 String s_appointmentDate=jf6.getText();
-                //String qualification = jf8.getText();
-                //String yearOfStartPractice = jf9.getText();
-                
-                //Date shiftDate = (Date)datePicker3.getModel().getValue();
                 String s_shiftDate = jf7.getText();
                 
                 String shiftTime=jf8.getText();
@@ -1097,8 +1092,6 @@ public class StaffAdmin implements Staff{
                     //ps.setString(6,departmentName);
                     ps.setString(5,""+salary);
                     ps.setString(6,s_appointmentDate);
-                    //ps.setString(9,qualification);
-                    //ps.setString(10,yearOfStartPractice);
                     ps.setString(8,shiftTime);
                     ps.setString(7,s_shiftDate);
                     
@@ -1214,8 +1207,7 @@ public class StaffAdmin implements Staff{
             
             right.removeAll();
             PreparedStatement ps = con.prepareStatement("select * from departmentadmin");
-            //System.out.println(employeeId);
-            //ps.setString(1, Integer.toString(employeeId));
+            
             ResultSet rs = ps.executeQuery();
             ArrayList<JLabel> jl =new ArrayList<>();
             int count=1; 
@@ -1224,9 +1216,6 @@ public class StaffAdmin implements Staff{
                 jl.add(new JLabel(rs.getString("name")));
                 //jl.add(new JLabel(rs.getString("dob")));
                 jl.add(new JLabel(rs.getString("contactinfo")));
-                //jl.add(new JLabel(rs.getString("address")));
-                //jl.add(new JLabel(rs.getString("salary")));
-                //jl.add(new JLabel(rs.getString("dateofappointment")));
                 count++; 
                                
             }
@@ -1238,9 +1227,6 @@ public class StaffAdmin implements Staff{
             jp.add(new JLabel("name"));
             //jp.add(new JLabel("dob"));
             jp.add(new JLabel("contactinfo"));
-            //jp.add(new JLabel("address"));
-            //jp.add(new JLabel("salary"));
-            //jp.add(new JLabel("dateofappointment"));
             for(int i=0;i<jl.size();i++){
                 jp.add(jl.get(i));
             }
@@ -1259,8 +1245,7 @@ public class StaffAdmin implements Staff{
             
             right.removeAll();
             PreparedStatement ps = con.prepareStatement("select * from nurse");
-            //System.out.println(employeeId);
-            //ps.setString(1, Integer.toString(employeeId));
+            
             ResultSet rs = ps.executeQuery();
             ArrayList<JLabel> jl =new ArrayList<>();
             int count=1; 
@@ -1269,9 +1254,6 @@ public class StaffAdmin implements Staff{
                 jl.add(new JLabel(rs.getString("name")));
                 //jl.add(new JLabel(rs.getString("dob")));
                 jl.add(new JLabel(rs.getString("contactinfo")));
-                //jl.add(new JLabel(rs.getString("address")));
-                //jl.add(new JLabel(rs.getString("salary")));
-                //jl.add(new JLabel(rs.getString("dateofappointment")));
                 jl.add(new JLabel(rs.getString("shiftdate")));
                 jl.add(new JLabel(rs.getString("shifttime")));
                 count++; 
@@ -1285,9 +1267,6 @@ public class StaffAdmin implements Staff{
             jp.add(new JLabel("name"));
             //jp.add(new JLabel("dob"));
             jp.add(new JLabel("contactinfo"));
-            //jp.add(new JLabel("address"));
-            //jp.add(new JLabel("salary"));
-            //jp.add(new JLabel("dateofappointment"));
             jp.add(new JLabel("shiftdate"));
             jp.add(new JLabel("shifttime"));
             for(int i=0;i<jl.size();i++){
@@ -1318,9 +1297,7 @@ public class StaffAdmin implements Staff{
                 jl.add(new JLabel(rs.getString("name")));
                 //jl.add(new JLabel(rs.getString("dob")));
                 jl.add(new JLabel(rs.getString("contactinfo")));
-                //jl.add(new JLabel(rs.getString("address")));
-                //jl.add(new JLabel(rs.getString("salary")));
-                //jl.add(new JLabel(rs.getString("dateofappointment")));
+                
                 jl.add(new JLabel(rs.getString("shiftdate")));
                 jl.add(new JLabel(rs.getString("shifttime")));
                 count++; 

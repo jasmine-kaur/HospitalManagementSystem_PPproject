@@ -207,8 +207,6 @@ public class TraumaSurgeon implements Staff{
         public void actionPerformed(ActionEvent e) { 
             try {
                 PreparedStatement ps = con.prepareStatement("insert into departmentnotification values(?,?)");
-                //System.out.println(doctoridField.getText());
-                //System.out.println(doctoridField.getText());
                 ps.setString(1,departmentnameField.getText());
                 ps.setString(2, messageField.getText());
                 ps.executeUpdate();

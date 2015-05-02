@@ -18,13 +18,12 @@ import javax.swing.JPanel;
  * @author Mansi Verma
  */
 public class MenuBar {
-    private JPanel menuBar;
-    private static MenuBar instance= new MenuBar();
+    private final JPanel menuBar;
+    private static final MenuBar instance= new MenuBar();
     
     
     protected MenuBar(){
         menuBar=new JPanel(new BorderLayout());
-        //menuBar.setSize(640, 480);
     }
     
     public static MenuBar getInstance(){
@@ -39,7 +38,6 @@ public class MenuBar {
     public void setMenu(){
         JMenuBar jMenuBar=new JMenuBar();
         JMenu game=new JMenu("mansi");
-        //Game gameMenu=new Game();
         JMenuItem newGame= new JMenuItem("logout");
         newGame.addActionListener((ActionListener) new LogOut());
         game.add(newGame);

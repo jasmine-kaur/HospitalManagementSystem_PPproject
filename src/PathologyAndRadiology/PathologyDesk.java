@@ -8,12 +8,9 @@ import java.util.Date;
 import java.util.ArrayList;
 import BasicDetails.*;
 import BasicLayout.BasicLayout;
-import emergency.EmergencyDesk;
-import emergency.TraumaSurgeon;
 import java.awt.Color;
 import java.awt.Component;
 import patient.*;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,7 +45,6 @@ public class PathologyDesk implements Staff{
     private long contactInfo;
     private Address address;
     private int salary;
-    private Frame frame;
     private DepartmentType departmentName;
     private JPanel jFunction;
     private JPanel left;
@@ -67,6 +63,15 @@ public class PathologyDesk implements Staff{
      private JDatePickerImpl datePicker;
     private JTextField registrationField;
     
+    public PathologyDesk(){
+        this.address=null;
+        this.basicLayout=null;
+        this.contactInfo=0;
+        this.dateOfBirth=null;
+        this.name=null;
+        this.salary=0;
+        this.departmentName=null;
+    }
     public PathologyDesk(String employeeid){
         this.employeeId=Integer.parseInt(employeeid);
     }
@@ -278,7 +283,7 @@ public class PathologyDesk implements Staff{
                 try {
                     ps = con.prepareStatement("insert into pathologytest values (?,?,?)");
                     ps.setString(1, testnameField.getText());
-                    if(!costField.equals("")){
+                    if(!costField.getText().equals("")){
                         ps.setString(3, costField.getText());
                     }
                     else{
@@ -467,16 +472,25 @@ public class PathologyDesk implements Staff{
                            regid=Integer.parseInt(rs2.getString(1));
                        }
                    PathologyTest pathtest=new PathologyTest(regid+1,"");
-                   if(!doctoridField.getText().equals("")){
+                   if(!doctoridField.getText().equalsIgnoreCase("")){
                        pathtest.setDoctorId(Integer.parseInt(doctoridField.getText()));
                    }
-                   if(!patientidField.getText().equals("")){
-                       pathtest.setPatientId(Integer.parseInt(patientidField.getText()));
+                   if(!patientidField.getText().equalsIgnoreCase("")){
+                       try{
+                        pathtest.setPatientId(Integer.parseInt(patientidField.getText()));
+                       }catch(NumberFormatException ex){
+                           JOptionPane.showMessageDialog(cp, "Patient id field is not in proper format");
+                       }
+                       
                    }
-                   if(!testidField.getText().equals("")){
-                       pathtest.setTestId(Integer.parseInt(testidField.getText()));
+                   if(!testidField.getText().equalsIgnoreCase("")){
+                       try{
+                        pathtest.setTestId(Integer.parseInt(testidField.getText()));
+                       }catch(NumberFormatException ex){
+                           JOptionPane.showMessageDialog(cp, "Test id field is not in proper format");
+                       }
                    }
-                   if(!departmentnameField.getText().equals("")){
+                   if(!departmentnameField.getText().equalsIgnoreCase("")){
                        pathtest.setDepartmentType(departmentnameField.getText());
                    }
                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");

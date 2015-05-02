@@ -5,12 +5,11 @@
  */
 package patient;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
-import java.sql.Time;
+
 import staff.*; 
-import java.util.Date;
-import java.util.TimeZone;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static login.LogIn.con;
@@ -29,8 +28,7 @@ public class Appointment {
     private int doctorId;
     private String departmentName;
     private String appointmentTime;
-    //private Time time;
-    
+   
     
     public Appointment(int appointmentId , int doctorId, String date, int patientId, String departmentName,String appointmentTime) {
         this.appointId = appointmentId;
@@ -42,10 +40,6 @@ public class Appointment {
         
         PreparedStatement ps, ps2;
         try {
-            /*PreparedStatement ps1=con.prepareStatement("select MAX(appointmentid) from appointment");
-            ResultSet rs1=ps1.executeQuery();
-            int rid=Integer.parseInt(rs1.getString(1))+1;
-            System.out.println(rid);*/
             
             ps=con.prepareStatement("insert into appointment values (?,?,?,?,?,?)");
             ps.setString(1,""+appointmentId);
@@ -77,41 +71,8 @@ public class Appointment {
         return date;
     }
     
-    /*public Time getTime(){
-        return date;
-    }*/
-    
-    public void setDoctor(Doctor doctor){
-        
-    }
-    
-    public void setPatient(Patient patient){
-        
-    }
-    
-    public void setDate(Date date){
-        
-    }
-    
-    /*public void setTime(Time time){
-        
-    }*/
-    
-    public void checkDoctorAvailability(){
-        
-    }
-    
-    public void bookAppointment(){
-        
-    }
-    
-    public void cancelAppointment(){
-        
-    }
-    
+    @Override
     public String toString(){
-        //int appointmentId , int doctorId, String date, 
-        //int patientId, String departmentName,String appointmentTime) {
         return ""+appointId+","+doctorId+","+patientId+","+date+","+departmentName+","+appointmentTime;
     }
     
