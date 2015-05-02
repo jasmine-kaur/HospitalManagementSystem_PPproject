@@ -11,16 +11,14 @@ import java.awt.Frame;
  */
 public class Budget {
     
-    private long budgetValue;
-    private Frame frame;
+    public long budgetValue=10000;
     
     public long getBudget(){
-        return 1;
-        
+        return budgetValue;
     }
     
-    public void setBudget(int amount){
-        
+    public void setBudget(long amount){
+        budgetValue=amount;
     }
     
 }

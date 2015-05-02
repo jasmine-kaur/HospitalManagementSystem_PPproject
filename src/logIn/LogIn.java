@@ -29,8 +29,11 @@ import emergency.TraumaSurgeon;
 import emergency.EmergencyDesk;
 import PathologyAndRadiology.PathologyDesk;
 import PathologyAndRadiology.RadiologyDesk;
+import account.Accountant;
 import department.DepartmentAdmin;
+import department.WardCareTaker;
 import infrastructure.InfraAdmin;
+import staff.Nurse;
 import staff.StaffAdmin;
 import staff.WardBoy;
 
@@ -221,6 +224,19 @@ public class LogIn extends JFrame implements ActionListener
                 else if( employeeType.equals(StaffType.DEPARTMENTADMIN.getStaffType())){
                     DepartmentAdmin departmentAdmin= new DepartmentAdmin(Integer.parseInt(rs.getString(3)));
                     departmentAdmin.addUI();
+                }
+                else if( employeeType.equals(StaffType.NURSE.getStaffType())){
+                    Nurse nurse= new Nurse(Integer.parseInt(rs.getString(3)));
+                    nurse.addUI();
+                }
+                else if( employeeType.equals(StaffType.WARDCARETAKER.getStaffType())){
+                    WardCareTaker wardCareTaker= new WardCareTaker(Integer.parseInt(rs.getString(3)));
+                    wardCareTaker.addUI();
+                }
+                
+                else if( employeeType.equals(StaffType.ACCOUNTANT.getStaffType())){
+                    Accountant accountant= new Accountant(Integer.parseInt(rs.getString(3)));
+                    accountant.addUI();
                 }
 
             } else

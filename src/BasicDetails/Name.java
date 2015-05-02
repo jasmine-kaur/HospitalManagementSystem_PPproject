@@ -48,7 +48,8 @@ public class Name {
         return this.thirdname;
     }
     
+    @Override
      public String toString(){
-        return this.firstname+" "+this.secondname+" "+this.thirdname;
+        return " "+this.firstname+" "+this.secondname+this.thirdname;
     }
 }

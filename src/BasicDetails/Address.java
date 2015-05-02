@@ -22,7 +22,6 @@ public class Address {
         this.street=street;
         this.city= city;
         this.state= state;
-     //   this.postalCode= postalCode;
     }
     
     public int getHouseNumber(){
@@ -57,6 +56,7 @@ public class Address {
         this.postalCode=postalCode;
     }
     
+    @Override
     public String toString(){
         return this.houseNumber+","+this.street+","+this.city+","+this.state;
     }

@@ -21,6 +21,8 @@ public enum StaffType {
     EMERGENCYDESK("emergencydesk"),
     DEPARTMENTADMIN("departmentadmin"),
     STAFFADMIN("staffadmin"),
+    WARDCARETAKER("wardcaretaker"),
+    ACCOUNTANT("accountant"),
     INFRAADMIN("infraadmin");
     
     
