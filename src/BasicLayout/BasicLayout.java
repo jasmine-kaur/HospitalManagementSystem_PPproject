@@ -3,18 +3,25 @@
 package BasicLayout;
 
 //import com.sun.java.util.jar.pack.Attribute.Layout;
+import BasicDetails.Address;
 import BasicDetails.Name;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -37,10 +44,11 @@ import staff.DateLabelFormatter;
  *
  * @author Mansi Verma
  */
+
 public class BasicLayout {
     
     private JFrame jFrame;
-    //private JLabel title;
+    boolean enteredData=false;
     private JPanel title_panel;
     private JPanel buttons;
     private JPanel footer;
@@ -48,6 +56,29 @@ public class BasicLayout {
     private JPanel loginAs;
     Patient patient;
     JMenuBar jMenuBar =new JMenuBar();
+    private final int MAX=1024;
+    
+    ///////////////////////
+    JTextField firstnameField;
+        JTextField secondnameField;
+        JTextField thirdnameField;
+     
+        JTextField contactField;
+        JTextField houseNumField;
+        JTextField streetField;
+        JTextField cityField;
+        JTextField stateField;
+        JTextField postalcodeField;
+        JRadioButton male;
+        JRadioButton female;
+        JRadioButton others;
+        JTextField dobField;
+        JDatePickerImpl datePicker ;
+        JTextField billField;
+        //BloodGroup bloodGroup, int PatientId, 
+        //int Registrationid, DepartmentType departmentType, int doctorId, int wardNumber, String medicine)
+        JTextField departmentTypeField;
+        JButton submit=new JButton("Submit");
     
     public void addUI(){
        
@@ -61,7 +92,10 @@ public class BasicLayout {
         //Title panel with label iiitd-hospital
         title_panel= new JPanel(new BorderLayout());
         
+        JButton logOut= new JButton("Log out");
+        
         //Panel after title panel
+        
         loginAs= new JPanel(new BorderLayout());
         buttons=new JPanel();
         main= new JPanel(new BorderLayout());
@@ -71,7 +105,7 @@ public class BasicLayout {
        
        
        loginAs.setBackground(Color.DARK_GRAY);
-       
+       loginAs.add(logOut, BorderLayout.EAST);
        loginAs.setPreferredSize(d);
          
        title_panel.setBackground(Color.cyan);
@@ -109,37 +143,57 @@ public class BasicLayout {
     
       
     
-    public JPanel getCustomerForm(){
+    public JPanel getCustomerForm(final JButton saveToDb){
         
-        JPanel form= new JPanel(new GridLayout(10,1, 4,4 ));
+        patient= new Patient();
+        
+        JPanel form= new JPanel(new GridLayout(20,1, 4,4 ));
         form.setBackground(Color.PINK);
         JLabel firstnameLabel= new JLabel("First Name:");
         JLabel secondnameLabel= new JLabel("Second Name:");
+        JLabel thirdnameLabel= new JLabel("Third Name:");
         JLabel dobLabel= new JLabel("Date of Birth:");
         JLabel genderLabel= new JLabel("Gender:");
-        JLabel regIDLabel= new JLabel("Registration Id:");
+        
         JLabel contactLabel= new JLabel("Contact Info:");
-        JLabel addressLabel= new JLabel("Address:");
+        JLabel houseNumLabel= new JLabel("House Number:");
+        JLabel streetLabel= new JLabel("Street Name:");
+        JLabel cityLabel= new JLabel("City:");
+        JLabel stateLabel= new JLabel("State:");
         
-        JTextField firstnameField= new JTextField();
-        JTextField secondnameField= new JTextField();
-        JTextField dobField= new JTextField();
         
-        JRadioButton male= new JRadioButton("male");
-        JRadioButton female= new JRadioButton("female");
-        JRadioButton others= new JRadioButton("others");
+        firstnameField= new JTextField();
+        secondnameField= new JTextField();
+        thirdnameField= new JTextField();
+        
+        //JTextField dobField= new JTextField();
+        
+        male= new JRadioButton("male");
+        female= new JRadioButton("female");
+         others= new JRadioButton("others");
                 
-        JTextField regIdField= new JTextField();
-        JTextField contactField= new JTextField();
-        JTextField addressField= new JTextField();
+      
+         contactField= new JTextField();
+         houseNumField= new JTextField();
+         streetField= new JTextField();
+         cityField= new JTextField();
+         stateField= new JTextField();
+         billField= new JTextField();
+        dobField= new JTextField();
         
         //Adding them in the panel created
         form.add(firstnameLabel);
         form.add(firstnameField);
+       firstnameField.setText("-");
        // form.add(new JSeparator(SwingConstants.HORIZONTAL));
         
         form.add(secondnameLabel);
         form.add(secondnameField);
+        secondnameField.setText("-");
+        
+        form.add(thirdnameLabel);
+        form.add(thirdnameField);
+        thirdnameField.setText("-");
         
         form.add(dobLabel);
         //Adding date picker
@@ -150,13 +204,14 @@ public class BasicLayout {
         p.put("text.year", "Year");
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         DateLabelFormatter dateLabel=new DateLabelFormatter();
-        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, dateLabel);
+        datePicker = new JDatePickerImpl(datePanel, dateLabel);
         form.add(datePicker);
         
-
-        Calendar selectedValue = (Calendar) datePicker.getModel().getValue();
+        //dobField.setText("1");
+        //dobField.setText(datePicker.getModel().getValue().toString());
+        /*Calendar selectedValue = (Calendar) datePicker.getModel().getValue();
         Date selectedDate = selectedValue.getTime();
-        System.out.println("date:"+selectedDate);
+        System.out.println("date:"+selectedDate);*/
         
         //Adding radiobutton
         form.add(genderLabel);
@@ -164,32 +219,88 @@ public class BasicLayout {
         form.add(female);
         form.add(others);
         
+        /* private int houseNumber;
+    private String street;
+    private String city;
+    private String state;
+    private Long postalCode;*/
         //Adding registrationid
-        form.add(regIDLabel);
-        form.add(regIdField);
+        /*form.add(regIDLabel);
+        regIdField.setText("0");
+        form.add(regIdField);*/
         
         //Adding contact info
         form.add(contactLabel);
+        contactField.setText("0");
         form.add(contactField);
         
         //Adding address
-        form.add(addressLabel);
-        form.add(addressField);
+        form.add(houseNumLabel);
+        houseNumField.setText("0");
+        form.add(houseNumField);
         
-        //Name name=new Name(firstnameField.getText(),secondnameField.getText(),null);
-        //name.setFirstname(firstname.getText());
-        //patient.setName(name);
-       /*if(male.isSelected()){
-            patient.setGender(Gender.MALE);
-        }
-        if(female.isSelected()){
-            patient.setGender(Gender.FEMALE);
-        }
-        */
+        form.add(streetLabel);
+        streetField.setText("-");
+        form.add(streetField);
         
-        //String localDate= datePicker
-       // System.out.println("local date:"+ localDate);
-        //patient.setDateOfBirth(datePicker.get);//
+        form.add(cityLabel);
+        cityField.setText("-");
+        form.add(cityField);
+        
+        form.add(stateLabel);
+        stateField.setText("-");
+        form.add(stateField);
+        
+  
+        
+        //
+        
+        
+        
+        submit.setPreferredSize(new Dimension(100,100));
+        form.add(submit);
+       
+        
+        submit.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+                
+                System.out.println("Submit is clicked");
+                saveToDb.setEnabled(true);
+                
+                if(male.isSelected()){
+                    patient.setGender(Gender.MALE.getGender());
+                }
+                if(female.isSelected()){
+                    patient.setGender(Gender.FEMALE.getGender());
+                  }
+                Name nameObj=new Name(firstnameField.getText(), secondnameField.getText(), thirdnameField.getText());
+                
+                patient.setName(nameObj);
+                Date scheduled_date_obj1=(Date)datePicker.getModel().getValue();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                String scheduled_date=dateFormat.format(scheduled_date_obj1);
+                
+                Address address=new Address(Integer.parseInt(houseNumField.getText()),streetField.getText(),cityField.getText(),stateField.getText());
+                if(address.toString().length() > MAX ){
+                    JOptionPane.showMessageDialog(null, "Too Long address!");
+                }
+                patient.setAddress(address);
+                try{
+                    patient.setContactInfo(Long.parseLong(contactField.getText()));
+                }catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Not proper format for contact information!");
+                }
+                
+                try{
+                    patient.setDateOfBirth(scheduled_date);
+                }catch(NullPointerException ex){
+                    JOptionPane.showMessageDialog(null, "Date field is empty!");
+                }
+                
+                }
+        });
+       
         
         return form;
     }
@@ -198,6 +309,9 @@ public class BasicLayout {
         return buttons;
     }
    
+    public JButton getSubmitButton(){
+        return submit;
+    }
     public Patient getPatient(){
         
         if(patient!=null)
@@ -205,5 +319,9 @@ public class BasicLayout {
         return null;
     }
     
+    public static void main(String[] args) {
+        BasicLayout basicLayout= new BasicLayout();
+        basicLayout.addUI();
+    }
     
 }

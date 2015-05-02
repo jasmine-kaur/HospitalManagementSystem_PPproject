@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 class LogOut implements ActionListener {
 
      private Component cp;
+     
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -28,5 +29,5 @@ class LogOut implements ActionListener {
         
     }
 
-    
+     
 }

@@ -21,15 +21,24 @@ import java.awt.*;
 import java.awt.event.*;
 
 import java.sql.*;
-import staff.Receptionist;
+import staff;
 import staff.StaffType;
+import staff.Doctor;
+import staff.HOD;
+import emergency.TraumaSurgeon;
+import emergency.EmergencyDesk;
+import PathologyAndRadiology.PathologyDesk;
+import PathologyAndRadiology.RadiologyDesk;
 
  
+
 
 public class LogIn extends JFrame implements ActionListener
 
 {
 
+    public static Connection con;
+    
     JLabel l1, l2, l3;
 
     JTextField tf1;
@@ -142,9 +151,9 @@ public class LogIn extends JFrame implements ActionListener
             Class.forName("com.mysql.jdbc.Driver");
             //String host="173.194.253.179/pp";
             String host="jdbc:mysql://173.194.253.179/hospital";
-            Connection con = DriverManager.getConnection(host, "root", "sampleapp");
+            con = DriverManager.getConnection(host, "root", "sampleapp");
 
-            PreparedStatement ps = con.prepareStatement("select username,employeetype from login where username =? and password=?");
+            PreparedStatement ps = con.prepareStatement("select username,employeetype,employeeid from login where username =? and password=?");
 
             ps.setString(1, str1);
 
@@ -164,41 +173,36 @@ public class LogIn extends JFrame implements ActionListener
                 String employeeType=rs.getString(2);
                 
                 if( employeeType.equals(StaffType.RECEPTIONIST.getStaffType())){
-                    Receptionist rec= new Receptionist();
+                    int employeeId= Integer.parseInt(rs.getString(3));
+                    Receptionist rec= new Receptionist(employeeId);
                     rec.addUI();
                 }
-                //System.out.println("Type of Employee:"+employeetype);
-                /*f1.setVisible(true);
-
-                f1.setSize(600, 600);
-
-                f1.setLayout(null);
-
-                l = new JLabel();
-
-                l0 = new JLabel("you are succefully logged in..");
-
-                l0.setForeground(Color.blue);
-
-                l0.setFont(new Font("Serif", Font.BOLD, 30));
-
-                l.setBounds(60, 50, 400, 30);
-
-                l0.setBounds(60, 100, 400, 40);
-
- 
-
-                f1.add(l);
-
-                f1.add(l0);
-
-                l.setText("Welcome " + rs.getString(1));
-
-                l.setForeground(Color.red);
-
-                l.setFont(new Font("Serif", Font.BOLD, 30));*/
-
- 
+                
+                else if( employeeType.equals(StaffType.DOCTOR.getStaffType())){
+                    Doctor doctor= new Doctor(rs.getString(3));
+                    doctor.addUI();
+                }
+                else if( employeeType.equals(StaffType.HOD.getStaffType())){
+                    HOD hod= new HOD(rs.getString(3));
+                    hod.addUI();
+                }
+                else if( employeeType.equals(StaffType.TRAUMASURGEON.getStaffType())){
+                    TraumaSurgeon ts= new TraumaSurgeon(rs.getString(3));
+                    ts.addUI();
+                }
+                else if( employeeType.equals(StaffType.EMERGENCYDESK.getStaffType())){
+                    EmergencyDesk ed= new EmergencyDesk(rs.getString(3));
+                    ed.addUI();
+                }
+                else if( employeeType.equals(StaffType.PATHOLOGYDESK.getStaffType())){
+                    PathologyDesk pd= new PathologyDesk(rs.getString(3));
+                    pd.addUI();
+                }
+                else if( employeeType.equals(StaffType.RADIOLOGYDESK.getStaffType())){
+                    RadiologyDesk rd= new RadiologyDesk(rs.getString(3));
+                    rd.addUI();
+                }
+        
 
             } else
 

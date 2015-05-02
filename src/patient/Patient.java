@@ -16,15 +16,15 @@ import java.util.Date;
 public class Patient {
     
     private Name name;
-    private Date dateOfBirth;
-    private Gender gender;
+    private String dateOfBirth;
+    private String gender;
     private long registrationId;
     private long contactInfo;
     private Address address;
     
     private PatientRecord patientRecord;
     private Bill bill;
-    private Test test;
+    private RadiologyTest test;
     private Appointment appointment;
     private Surgery surgery;
     
@@ -36,19 +36,19 @@ public class Patient {
         this.name=name;
     }
     
-    public Date getDateOfBirth(){
+    public String getDateOfBirth(){
         return dateOfBirth;
     }
     
-    public void setDateOfBirth(Date date){
+    public void setDateOfBirth(String date){
         this.dateOfBirth=date;
     }
     
-    public Gender getGender(){
+    public String getGender(){
         return gender;
     }
     
-    public void setGender(Gender gender){
+    public void setGender(String gender){
         this.gender=gender;
     }
     
@@ -62,6 +62,10 @@ public class Patient {
     
     public long getRegistrationId(){
         return registrationId;
+    }
+    
+    public void setRegistrationId(int registrationId){
+        this.registrationId= registrationId;
     }
     
     public Address getAddress(){
@@ -85,14 +89,14 @@ public class Patient {
     }
     
     private void updatePatientRecord(PatientRecord patientRecord){
-        
+        this.patientRecord= patientRecord;
     }
     
     private void updatePatientRecord(Appointment appointment){
         
     }
     
-    private void updatePatientRecord(Test test){
+    private void updatePatientRecord(RadiologyTest test){
         
     }
     
@@ -115,5 +119,8 @@ public class Patient {
     private void updatePatientRecord(BloodGroup bloodGroup){
         
     }
-    
+
+   public String toString(){
+       return this.getName().toString()+this.getAddress().toString()+this.getContactInfo()+this.getDateOfBirth()+this.getGender()+this.getRegistrationId();
+   }
 }

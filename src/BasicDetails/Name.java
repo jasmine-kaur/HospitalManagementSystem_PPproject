@@ -44,6 +44,11 @@ public class Name {
     }
     
     public String getThirdname(){
+        
         return this.thirdname;
+    }
+    
+     public String toString(){
+        return this.firstname+" "+this.secondname+" "+this.thirdname;
     }
 }

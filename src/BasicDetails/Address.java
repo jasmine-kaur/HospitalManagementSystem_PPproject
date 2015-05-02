@@ -16,6 +16,15 @@ public class Address {
     private String state;
     private Long postalCode;
     
+    
+    public Address(int houseNumber, String street,String city, String state){
+        this.houseNumber=houseNumber;
+        this.street=street;
+        this.city= city;
+        this.state= state;
+     //   this.postalCode= postalCode;
+    }
+    
     public int getHouseNumber(){
         return this.houseNumber;
     }
@@ -46,5 +55,9 @@ public class Address {
     }
     public void setPostalCode(Long postalCode){
         this.postalCode=postalCode;
+    }
+    
+    public String toString(){
+        return this.houseNumber+","+this.street+","+this.city+","+this.state;
     }
 }

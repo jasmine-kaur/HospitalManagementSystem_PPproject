@@ -14,7 +14,12 @@ public enum StaffType {
     WARDBOY("wardboy"),
     HOD("hod"),
     NURSE("nurse"),
-    RECEPTIONIST("receptionist");
+    RECEPTIONIST("receptionist"),
+    TRAUMASURGEON("traumasurgeon"),
+    PATHOLOGYDESK("pathologydesk"),
+    RADIOLOGYDESK("radiologydesk"),
+    EMERGENCYDESK("emergencydesk");
+
     
     private final String staffType;
     

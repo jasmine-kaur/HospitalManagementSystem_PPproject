@@ -32,7 +32,7 @@ public class Accountant implements Staff{
         
     }
     
-    public void getBill(Bill bill){
+    public void getBill(int billAmount){
         
     }
     
