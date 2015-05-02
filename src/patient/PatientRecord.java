@@ -26,7 +26,7 @@ public class PatientRecord {
     private int wardNumber;
     ArrayList<Surgery> surgeries;
     // ArrayList<Medicine> medicines;
-    ArrayList<Test> tests;
+    ArrayList<RadiologyTest> tests;
     ArrayList<Appointment> appointments;
 
     public PatientRecord(){
@@ -138,11 +138,11 @@ public class PatientRecord {
         
     }
     
-    public void addTest(Test test){
+    public void addTest(RadiologyTest test){
         
     }
     
-    public void removeTest(Test test){
+    public void removeTest(RadiologyTest test){
         
     }
     

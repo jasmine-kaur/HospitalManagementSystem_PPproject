@@ -10,8 +10,23 @@ package staff;
  * @author Mansi Verma
  */
 public enum DepartmentType {
-    CARDIO,
-    NEURO,
-    PED,
-    ORTHO;
+    CARDIOLOGY("cardiology"),
+    NEUROLOGY("neurology"),
+    PEDIATRICIAN("pediatrician"),
+    ORTHOPEDIC("orthopedic");
+    private final String departmentType;
+    
+    private DepartmentType(final String DepartmentType){
+        this.departmentType=DepartmentType;
+    }
+    
+     public String getDepartmentType() {
+        return departmentType;
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return departmentType;
+    }
 }

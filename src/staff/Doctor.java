@@ -47,7 +47,7 @@ public class Doctor implements Staff{
     private DepartmentType departmentName;
     private JPanel jFunction;
     private JPanel left;
-    private JPanel right;
+    public JPanel right;
     BasicLayout basicLayout;
     private Component cp;
     private JTextField registrationidField, doctoridField, bloodgroupField, wardnumberField, medicineField, departmentnameField;
@@ -55,16 +55,18 @@ public class Doctor implements Staff{
     @Override
     public void viewProfile() {
         JOptionPane.showMessageDialog(cp, "view Profile");
+        System.out.println(employeeId);
         try {
             
             
             PreparedStatement ps=con.prepareStatement("select name, dob ,contactinfo, address , departmentname , salary , dateofappointment, qualification, practicestartyear , departmentsenioritynumber from doctor where employeeid=?");
-           ps.setString(1, ""+employeeId);
-           ResultSet rs = ps.executeQuery();
+            ps.setString(1, ""+employeeId);
+            ResultSet rs = ps.executeQuery();
 
             JPanel jp=new JPanel(new GridLayout(10,1,4,4));
             jp.setBackground(Color.pink);
             while(rs.next()) {
+                
                 JLabel jl1 = new JLabel("Name: "+rs.getString("name"));
                 JLabel jl2 = new JLabel("DOB: "+ rs.getString("dob"));
                 JLabel jl3 = new JLabel("Contact info:" +rs.getString("contactinfo"));
@@ -74,8 +76,6 @@ public class Doctor implements Staff{
                 JLabel jl7 = new JLabel("Date of Appointment: "+rs.getString("dateofAppointment"));
                 JLabel jl8 = new JLabel("Qualification: "+rs.getString("qualification"));
                 JLabel jl9 = new JLabel("Practice Start year: " +rs.getString("practicestartyear"));
-            //    JLabel jl10 = new JLabel("Shift Date: "+rs.getString("shiftdate"));
-            //    JLabel jl11 = new JLabel("Shift Time: "+rs.getString("shifttime"));
                 JLabel jl12 = new JLabel("Department Seniority Number: "+rs.getString("departmentsenioritynumber"));
                 jp.add(jl1);  
                 jp.add(jl2); 
@@ -86,14 +86,16 @@ public class Doctor implements Staff{
                 jp.add(jl7);
                 jp.add(jl8);
                 jp.add(jl9);
-               // jp.add(jl10);
-               // jp.add(jl11);
                 jp.add(jl12); 
                 
-        }
+            }
+          
           right.removeAll();
+          System.out.println("yes");
           right.add(jp);
+          System.out.println("yes1");
           right.revalidate();
+          System.out.println("yes2");
           right.repaint();
             
         } catch (SQLException ex) {
@@ -120,7 +122,17 @@ public class Doctor implements Staff{
      
         right= new JPanel();
         
-        
+        try {
+            PreparedStatement ps=con.prepareStatement("select * from notification where employeeid=?");
+            ps.setString(1,""+employeeId);
+            ResultSet rs= ps.executeQuery();
+            while(rs.next()){
+                JLabel jl=new JLabel(rs.getString("message"));
+                left.add(jl);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Doctor.class.getName()).log(Level.SEVERE, null, ex);
+        }
         right.setBackground(Color.PINK);
         jFunction = basicLayout.getFunctions();
         
@@ -358,8 +370,9 @@ public class Doctor implements Staff{
                     PreparedStatement ps;
             
                 
-                ps = con.prepareStatement("select * from patientrecord where registrationid=?");
+                ps = con.prepareStatement("select * from patientrecord where registrationid=? and doctorid=?");
                 ps.setString(1, registrationidField.getText());
+                ps.setString(2, ""+employeeId);
                 ResultSet rs= ps.executeQuery();
                 JPanel jp=new JPanel(new GridLayout(10,1,4,4));
             jp.setBackground(Color.pink);

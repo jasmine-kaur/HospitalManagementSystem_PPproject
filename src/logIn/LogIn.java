@@ -24,8 +24,11 @@ import java.sql.*;
 import staff.Receptionist;
 import staff.StaffType;
 import staff.Doctor;
-
- 
+import staff.HOD;
+import emergency.TraumaSurgeon;
+import emergency.EmergencyDesk;
+import PathologyAndRadiology.PathologyDesk;
+import PathologyAndRadiology.RadiologyDesk;
 
 public class LogIn extends JFrame implements ActionListener
 
@@ -171,6 +174,26 @@ public class LogIn extends JFrame implements ActionListener
                 else if( employeeType.equals(StaffType.DOCTOR.getStaffType())){
                     Doctor doctor= new Doctor(rs.getString(3));
                     doctor.addUI();
+                }
+                else if( employeeType.equals(StaffType.HOD.getStaffType())){
+                    HOD hod= new HOD(rs.getString(3));
+                    hod.addUI();
+                }
+                else if( employeeType.equals(StaffType.TRAUMASURGEON.getStaffType())){
+                    TraumaSurgeon ts= new TraumaSurgeon(rs.getString(3));
+                    ts.addUI();
+                }
+                else if( employeeType.equals(StaffType.EMERGENCYDESK.getStaffType())){
+                    EmergencyDesk ed= new EmergencyDesk(rs.getString(3));
+                    ed.addUI();
+                }
+                else if( employeeType.equals(StaffType.PATHOLOGYDESK.getStaffType())){
+                    PathologyDesk pd= new PathologyDesk(rs.getString(3));
+                    pd.addUI();
+                }
+                else if( employeeType.equals(StaffType.RADIOLOGYDESK.getStaffType())){
+                    RadiologyDesk rd= new RadiologyDesk(rs.getString(3));
+                    rd.addUI();
                 }
         
  

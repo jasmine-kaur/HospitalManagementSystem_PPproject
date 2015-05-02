@@ -24,7 +24,7 @@ public class Patient {
     
     private PatientRecord patientRecord;
     private Bill bill;
-    private Test test;
+    private RadiologyTest test;
     private Appointment appointment;
     private Surgery surgery;
     
@@ -92,7 +92,7 @@ public class Patient {
         
     }
     
-    private void updatePatientRecord(Test test){
+    private void updatePatientRecord(RadiologyTest test){
         
     }
     
