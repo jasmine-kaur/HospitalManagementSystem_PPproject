@@ -18,8 +18,11 @@ public enum StaffType {
     TRAUMASURGEON("traumasurgeon"),
     PATHOLOGYDESK("pathologydesk"),
     RADIOLOGYDESK("radiologydesk"),
-    EMERGENCYDESK("emergencydesk");
-
+    EMERGENCYDESK("emergencydesk"),
+    DEPARTMENTADMIN("departmentadmin"),
+    STAFFADMIN("staffadmin"),
+    INFRAADMIN("infraadmin");
+    
     
     private final String staffType;
     

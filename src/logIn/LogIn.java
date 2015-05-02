@@ -21,7 +21,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import java.sql.*;
-import staff;
+import staff.Receptionist;
 import staff.StaffType;
 import staff.Doctor;
 import staff.HOD;
@@ -29,6 +29,10 @@ import emergency.TraumaSurgeon;
 import emergency.EmergencyDesk;
 import PathologyAndRadiology.PathologyDesk;
 import PathologyAndRadiology.RadiologyDesk;
+import department.DepartmentAdmin;
+import infrastructure.InfraAdmin;
+import staff.StaffAdmin;
+import staff.WardBoy;
 
  
 
@@ -49,7 +53,7 @@ public class LogIn extends JFrame implements ActionListener
 
  
 
-    LogIn()
+    public LogIn()
 
     {   
         
@@ -202,7 +206,22 @@ public class LogIn extends JFrame implements ActionListener
                     RadiologyDesk rd= new RadiologyDesk(rs.getString(3));
                     rd.addUI();
                 }
-        
+                else if( employeeType.equals(StaffType.WARDBOY.getStaffType())){
+                    WardBoy wardBoy= new WardBoy(Integer.parseInt(rs.getString(3)));
+                    wardBoy.addUI();
+                }
+                else if( employeeType.equals(StaffType.STAFFADMIN.getStaffType())){
+                    StaffAdmin staffAdmin= new StaffAdmin(Integer.parseInt(rs.getString(3)));
+                    staffAdmin.addUI();
+                }
+                else if( employeeType.equals(StaffType.INFRAADMIN.getStaffType())){
+                    InfraAdmin infraAdmin= new InfraAdmin(Integer.parseInt(rs.getString(3)));
+                    infraAdmin.addUI();
+                }
+                else if( employeeType.equals(StaffType.DEPARTMENTADMIN.getStaffType())){
+                    DepartmentAdmin departmentAdmin= new DepartmentAdmin(Integer.parseInt(rs.getString(3)));
+                    departmentAdmin.addUI();
+                }
 
             } else
 

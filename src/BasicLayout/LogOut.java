@@ -3,7 +3,9 @@ package BasicLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import login.LogIn;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,19 +17,15 @@ import javax.swing.JOptionPane;
  *
  * @author Mansi Verma
  */
-class LogOut implements ActionListener {
+class LogOut  {
 
      private Component cp;
      
+     public void actionLogIn(JFrame jFrame){
+         jFrame.dispose();
+         LogIn login= new LogIn();
+     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        JOptionPane
-          .showMessageDialog(
-              cp,
-              "SUCCESSFULLY LOGOUT");
-        
-    }
 
      
 }

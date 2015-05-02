@@ -76,48 +76,32 @@ public class Patient {
         this.address=address;
     }
     
-    private void addBill(Bill newBill){
-        
-    }
     
-    private void removeBill(Bill oldBill){
-        
-    }
     
     public PatientRecord getPatientRecord(){
         return patientRecord;
     }
     
-    private void updatePatientRecord(PatientRecord patientRecord){
+    public void updatePatientRecord(PatientRecord patientRecord){
         this.patientRecord= patientRecord;
     }
     
-    private void updatePatientRecord(Appointment appointment){
-        
+    public void updatePatientRecord(int patientid){
+        patientRecord.updatePatientid(patientid);
     }
     
-    private void updatePatientRecord(RadiologyTest test){
-        
+ 
+    
+    public void updatePatientRecordDoctor(int doctorid){
+        this.patientRecord.updateDoctorid(doctorid);
     }
     
-    private void updatePatientRecord(Surgery surgery){
-        
+    public void updatePatientRecord(DepartmentType departmentType){
+        this.patientRecord.updateDepartmentType(departmentType);
     }
     
-    private void updatePatientRecord(int wardNumber){
-        
-    }
-    
-    private void updatePatientRecord(Doctor doctor){
-        
-    }
-    
-    private void updatePatientRecord(DepartmentType departmentType){
-        
-    }
-    
-    private void updatePatientRecord(BloodGroup bloodGroup){
-        
+    public void updatePatientRecord(BloodGroup bloodGroup){
+        this.patientRecord.updatePatientBloodGroup(bloodGroup);
     }
 
    public String toString(){

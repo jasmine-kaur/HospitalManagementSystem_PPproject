@@ -57,6 +57,10 @@ public class Receptionist implements Staff{
     BasicLayout basicLayout;
     private Patient patient;
     
+    
+    
+    
+    
     String scheduledDate=new String();
      JDatePickerImpl datePicker;
      Bill bill;
@@ -349,13 +353,7 @@ public class Receptionist implements Staff{
     
     
     
-    public void queryAppointment(Patient patient){
-        
-        
-    }
-    public void payBill(Patient patient, Bill bill){
-        
-    }
+    
     public Bill generateBill(Patient patient){
         JOptionPane.showMessageDialog(null, "Generating Bill!!!!!");
         return null;

@@ -12,9 +12,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 import javax.swing.JButton;
@@ -102,6 +100,17 @@ public class BasicLayout {
        Dimension d= new Dimension(50,50);
        title_panel.setPreferredSize(d);
         
+       logOut.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                LogOut logOut= new LogOut();
+                
+                int dialogResult = JOptionPane.showConfirmDialog (null, "You really wanna LOG OUT?","Warning",1);
+                if(dialogResult == JOptionPane.YES_OPTION){
+                     JOptionPane.showMessageDialog(null,"SUCCESSFULLY LOGOUT");
+                     logOut.actionLogIn(jFrame);
+                }
+            }});
        
        
        loginAs.setBackground(Color.DARK_GRAY);

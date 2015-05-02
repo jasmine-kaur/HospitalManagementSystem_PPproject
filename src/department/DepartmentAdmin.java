@@ -5,11 +5,35 @@
  */
 package department;
 
-import java.util.Date;
-import java.awt.Frame;
-import staff.*;
-import infrastructure.*;
 import BasicDetails.*;
+import BasicLayout.BasicLayout;
+import infrastructure.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import static login.LogIn.con;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+import staff.*;
 
 /**
  *
@@ -17,6 +41,7 @@ import BasicDetails.*;
  */
 public class DepartmentAdmin implements Staff{
     
+    public static int numberOfTenders=0;
     private int employeeId;
     private Name name;
     private Date dateOfBirth;
@@ -25,33 +50,526 @@ public class DepartmentAdmin implements Staff{
     private int salary;
     private DepartmentType departmentName;
     private Frame frame;
-
+    private JPanel jFunction;
+    private JPanel left;
+    private JPanel right;
+    BasicLayout basicLayout;
+    private Component cp;
+   
+    
+    
+    public DepartmentAdmin(int employeeid)
+    {
+        employeeId=employeeid;
+    }
+    
+    
     @Override
-    public void viewProfile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    public void viewProfile(Staff staff){
+    public void viewProfile(){
+        
+        
+        JOptionPane.showMessageDialog(cp, "view Profile");
+        try {
+           
+            right.removeAll();
+           
+           PreparedStatement ps=con.prepareStatement("select * from departmentadmin where employeeid=?");
+           ps.setString(1, Integer.toString(employeeId));
+           ResultSet rs = ps.executeQuery();
+
+            JPanel jp=new JPanel(new GridLayout(12,1,4,4));
+            jp.setBackground(Color.pink);
+            
+            while(rs.next()) {
+                JLabel jl1 = new JLabel("Name: "+rs.getString("name"));
+                JLabel jl2 = new JLabel("DOB: "+ rs.getString("dob"));
+                JLabel jl3 = new JLabel("Contact info:" +rs.getString("contactinfo"));
+                JLabel jl4 = new JLabel("Address: "+rs.getString("address"));
+                JLabel jl5 = new JLabel("Salary: "+rs.getString("salary"));
+                JLabel jl6 = new JLabel("Date of Appointment: "+rs.getString("dateofAppointment"));
+             
+ 
+                jp.add(jl1); 
+                jp.add(jl2);
+                jp.add(jl3);
+                jp.add(jl4);
+                jp.add(jl5);
+                jp.add(jl6);
+              
+               
+        }
+           
+          right.add(jp);
+          right.repaint();
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(DepartmentAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
     
-    private void addUI(){
+    public void addUI(){
+        
+        JButton jViewProfile= new JButton("View Profile");
+        jViewProfile.setPreferredSize(new Dimension(50,50));
+        JButton jScheduleDoctor= new JButton("Schedule Doctor");
+        JButton jCallTender = new JButton("Call tender");
+        JButton jOpenTender=new JButton("Open tender");
+        JButton jCloseTender=new JButton("Close tender");
+        JButton jViewEquipments = new JButton("View Equipments");
+        JButton jSendFundRequest = new JButton("Send Fund Request");
+        JButton jGetFundApproval = new JButton("Get Fund Approval");
+        
+        basicLayout= new BasicLayout();
+        basicLayout.addUI();
+        
+        left= new JPanel(new GridLayout(10,1, 4,4 ));
+     
+        right= new JPanel();
+        
+        
+        right.setBackground(Color.PINK);
+        jFunction = basicLayout.getFunctions();
+        
+        jFunction.setLayout(new GridLayout(1, 2,4,4));
+         
+        left.add(jViewProfile);
+        left.add(jScheduleDoctor);
+        left.add(jCallTender);
+        left.add(jOpenTender);
+        left.add(jCloseTender);
+        left.add(jViewEquipments);
+        left.add(jSendFundRequest);
+        left.add(jGetFundApproval);
+        
+        
+        jFunction.add(left);
+        jFunction.add(right);
+        
+        //adding customer panel
+        
+        jViewProfile.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+                
+                viewProfile();
+                
+            }
+        } );
+        
+        jScheduleDoctor.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+                
+                right.removeAll();
+                
+                
+                JPanel form= new JPanel(new GridLayout(10,1, 4,4 ));
+                form.setBackground(Color.PINK);
+                
+
+                JButton submitButton = new JButton("Submit");
+                submitButton.setBounds(150, 160, 100, 30);
+                JLabel doctorIdLabel= new JLabel("Doctor Id:");
+                JLabel timeLabel= new JLabel("Time:");
+                
+                
+                UtilDateModel model = new UtilDateModel();
+                Properties p = new Properties();
+                p.put("text.today", "Today");
+                p.put("text.month", "Month");
+                p.put("text.year", "Year");
+                JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+                DateLabelFormatter dateLabel=new DateLabelFormatter();
+                final JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, dateLabel);
+                
+                
+                final JTextField doctorIdField= new JTextField();
+                final JTextField dateField= new JTextField();
+                final JTextField timeField= new JTextField();
+        
+                form.add(doctorIdLabel);
+                form.add(doctorIdField);
+                
+                form.add(datePicker);
+                
+                form.add(timeLabel);
+                form.add(timeField);
+
+                form.add(submitButton);
+                right.add(form);
+                
+
+                submitButton.addActionListener(new ActionListener(){
+                    
+                    public void actionPerformed(ActionEvent e)
+                    {
+
+                        JOptionPane.showMessageDialog(null,
+
+                   "Submission Successful!");
+                        
+                        String doctor_id = doctorIdField.getText();
+                        Date scheduled_date_obj1=(Date)datePicker.getModel().getValue();
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                        String scheduled_date=dateFormat.format(scheduled_date_obj1);
+                       // String scheduled_date= scheduled_date_obj1.toString();
+                        String scheduled_time=timeField.getText();
+                        
+                
+                
+                doctorScheduling(doctor_id,scheduled_date,scheduled_time);
+                
+                    }
+                });
+                
+            }
+        } );
+        
+        
+        jViewEquipments.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+                
+                viewEquipments();
+                
+            }
+        } );
+        
+        jCallTender.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+                
+                callTenders();
+                
+            }
+        } );
+        
+        jOpenTender.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+                
+                Tender tender = new Tender();
+                tender.openTender(right);
+                
+            }
+        } );
+        
+        jCloseTender.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+                
+                Tender tender = new Tender();
+                tender.closeTender(right);
+                
+            }
+        } );
+        
+        jSendFundRequest.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+            
+                right.removeAll();
+              
+                
+                JPanel form= new JPanel(new GridLayout(10,1, 4,4 ));
+                form.setBackground(Color.PINK);
+                
+                JButton submitButton = new JButton("Submit");
+                submitButton.setBounds(150, 160, 100, 30);
+   
+                final JLabel amountLabel = new JLabel("Enter amount:");
+                final JTextField amountField = new JTextField();
+           
+                form.add(amountLabel);
+                form.add(amountField);
+                form.add(submitButton);
+                right.add(form);
+            
+         
+            submitButton.addActionListener(new ActionListener(){
+                    
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        
+                        JOptionPane.showMessageDialog(null,
+
+                   "Submission Successful!");
+                
+                      String amountInString = amountField.getText();
+                      int amount = Integer.parseInt(amountInString);
+                      sendFundRequestsToInfraAdmin(amount);
+ 
+                
+                    }
+                });
+            
+            }
+        } );
+        
+        
+        jGetFundApproval.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+                
+                
+                    
+                getFundApprovalFromInfraAdmin();
+                
+            }
+        } );
+        
         
     }
-    public void doctorScheduling(){
+    
+    
+    public void doctorScheduling(String docId,String dateScheduled,String timeScheduled){
+        
+        try{
+            
+           PreparedStatement ps=con.prepareStatement("update doctor set shiftdate=?,shifttime=? where employeeid=?");
+           
+           ps.setString(1,dateScheduled);
+           ps.setString(2, timeScheduled);
+           ps.setString(3,docId);
+           ps.executeUpdate(); 
+           
+           right.repaint(); 
+        }
+        
+        catch(SQLException ex) {
+            Logger.getLogger(DepartmentAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }
-    public void callTenders(Tender tender){
+    
+    
+    public void callTenders(){
+        //create a new tender
+        right.removeAll();
+        JOptionPane.showMessageDialog(cp, "calling tenders");
+        JPanel jp=new JPanel(new GridLayout(7, 2, 4, 4));
+        jp.setBackground(Color.pink);
+        JLabel jl1 = new JLabel("Department Name: ");
+        final JTextField jf1 = new JTextField();
+        JLabel jl2 = new JLabel("Tender amount limit:");
+        final JTextField jf2 = new JTextField();
+        JLabel jl3 = new JLabel("Equipments in Tender:");
+        final JTextField jf3 = new JTextField();
+        JLabel jl4 = new JLabel("Tender Status:");
+        final JTextField jf4 = new JTextField();
+        
+        
+        jp.add(jl1);
+        jp.add(jf1);
+        jp.add(jl2);
+        jp.add(jf2);
+        jp.add(jl3);
+        jp.add(jf3);
+        jp.add(jl4);
+        jp.add(jf4);
+        
+        JButton btn = new JButton("Done");
+        jp.add(btn);
+        right.add(jp);
+        right.revalidate();
+        right.repaint();
+        
+        btn.addActionListener(new ActionListener(){
+                    
+                    public void actionPerformed(ActionEvent e)
+                    {
+                
+                      String departmentName = jf1.getText();
+                      int tenderAmountLimit = Integer.parseInt(jf2.getText());
+                      String equipments = jf3.getText();
+                      String tenderStatus = jf4.getText();
+                      
+                      PreparedStatement ps;
+                      ResultSet rs;
+                      int tenderId=-1;
+                        try {
+                            ps=con.prepareStatement("select MAX(tenderid) from tender");
+                            rs=ps.executeQuery();
+                            while(rs.next()){
+                                if(rs.getString(1)==null){tenderId=1;}
+                                else{tenderId=Integer.parseInt(rs.getString(1))+1;}
+                            }
+                            //if(rs.getString(1)==null){return;}
+                        } catch (SQLException ex) {
+                            Logger.getLogger(DepartmentAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                      PreparedStatement ps1;
+                        try {
+                            
+                            ps1=con.prepareStatement("insert into tender values (?,?,?,?,?,?,? )");
+                            ps1.setString(1, ""+tenderId);
+                            ps1.setString(2, departmentName);
+                            ps1.setString(3, ""+tenderAmountLimit);
+                            ps1.setString(4, equipments);
+                            ps1.setString(5, tenderStatus);
+                            ps1.setString(6, ""+0);
+                            ps1.setString(7, "none");
+                            ps1.executeUpdate();
+                            
+                        } catch (SQLException ex) {
+                            Logger.getLogger(DepartmentAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                
+                    }
+        });
         
     }
-    public void viewEquipments(Equipment equipment){
+    
+    
+    public void viewEquipments(){
         
-    }
-    public void sendFundRequestsToInfraAdmin(int amount){
+        JOptionPane.showMessageDialog(cp, "view Equipments");
+        String dept= new String();
         
-    }
+        try{
+            
+            right.removeAll();
+            JPanel jp=new JPanel(new GridLayout(12,1,4,4));
+            jp.setBackground(Color.pink);
+            
+            //query1
+            PreparedStatement st = con.prepareStatement("select * from departmentadmin where employeeid=?");
+            
+            st.setString(1,Integer.toString(employeeId));
+            ResultSet resultset=st.executeQuery();
+            while(resultset.next())
+            {
+                dept=resultset.getString("departmentname");
+            }
+            
+            //query2
+            PreparedStatement ps=con.prepareStatement("select * from equipment where departmenttype=?");
+            ps.setString(1,dept);
+            ResultSet rs = ps.executeQuery();
+           
+            
+            while(rs.next()) {
+                JLabel jl1 = new JLabel("Equipment Id: "+rs.getString("equipmentid"));
+                JLabel jl2 = new JLabel("Name: "+rs.getString("equipmentname"));
+                JLabel jl3 = new JLabel("Quantity: "+rs.getString("quantity"));
+                
+                jp.add(jl1);
+                jp.add(jl2);
+                jp.add(jl3);
+                
+            }
+          
+             right.add(jp);
+             right.repaint();
+             
+        }
+        catch(SQLException ex) {
+            Logger.getLogger(DepartmentAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        }
+        
+    
+    public void sendFundRequestsToInfraAdmin(Integer amount){
+        
+       
+       try{
+            //extracting the departmentname of the dept admin
+            PreparedStatement st = con.prepareStatement("select * from departmentadmin where employeeid=?");
+            String dept= new String();
+            st.setString(1,Integer.toString(employeeId));
+            ResultSet resultset=st.executeQuery();
+            while(resultset.next())
+            {
+                dept=resultset.getString("departmentname");
+            }
+            
+            PreparedStatement ps1=con.prepareStatement("select MAX(requestid) from fundrequest");
+            ResultSet rs1=ps1.executeQuery();
+            while(rs1.next())
+            {
+                numberOfTenders=Integer.parseInt(rs1.getString(1));
+            }
+            numberOfTenders++;
+            
+            PreparedStatement ps=con.prepareStatement("insert into fundrequest values(?,?,?)"); 
+            ps.setString(1,""+numberOfTenders);
+            ps.setString(2,dept);
+            ps.setString(3,""+amount);
+            ps.executeUpdate();
+         
+            right.repaint();
+         
+       }
+      
+       catch(SQLException ex) {
+            Logger.getLogger(DepartmentAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
+       }
+       
+        
+    
     ////should return BOOLEAN
     public void getFundApprovalFromInfraAdmin(){
         
-    }
+            
+            
+            right.removeAll();
+            JPanel form= new JPanel(new GridLayout(10,1, 4,4 ));
+            form.setBackground(Color.PINK);
+                
+            JButton submitButton = new JButton("Submit");
+            submitButton.setBounds(150, 160, 100, 30);
+   
+            final JLabel tenderIdLabel = new JLabel("Enter tender Id:");
+            final JTextField tenderIdField = new JTextField();
+           
+            form.add(tenderIdLabel);
+            form.add(tenderIdField);
+            form.add(submitButton);
+            right.add(form);
+            
+            submitButton.addActionListener(new ActionListener(){
+                    
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        
+                        boolean fundApproved=false;
+                        try{
+                        PreparedStatement ps= con.prepareStatement("select * from fundrequest");
+                        ResultSet rs=ps.executeQuery();
+            
+                        while(rs.next())
+                            {
+                                if(tenderIdField.getText()==rs.getString("requestid"))
+                                  {
+                                    fundApproved=true; 
+                                    JOptionPane.showMessageDialog(null,"Fund Approved!");
+                                    
+                                    
+                                   }
+                
+                                else 
+                                    {   
+                                      fundApproved=false;
+                                      JOptionPane.showMessageDialog(null,"Fund Not Approved!");
+                                    }
+                            }
+           
+            right.repaint();
+         }
+            catch(SQLException ex) {
+            Logger.getLogger(DepartmentAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                    }     });
+            
+    
+    } 
+
+
+    
+
 }

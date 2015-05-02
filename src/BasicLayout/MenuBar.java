@@ -1,6 +1,7 @@
 package BasicLayout;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -40,7 +41,7 @@ public class MenuBar {
         JMenu game=new JMenu("mansi");
         //Game gameMenu=new Game();
         JMenuItem newGame= new JMenuItem("logout");
-        newGame.addActionListener(new LogOut());
+        newGame.addActionListener((ActionListener) new LogOut());
         game.add(newGame);
        
         jMenuBar.add(game);
